@@ -1,6 +1,5 @@
 import re
 
-# 基于 Regulation.docx 提取的核心规章数据库[cite: 1]
 REGULATIONS_DB = {
     "L1": {
         "title": "Hours of opening",
@@ -30,42 +29,34 @@ REGULATIONS_DB = {
 
 class LibraryAssistantAgent:
     def __init__(self):
-        # 定义超出范围的实时操作关键词（对应 proposal 中的 safe refusal 策略）
         self.out_of_scope_keywords = [
             "book a room", "reserve a seat right now", "check availability", 
             "is seat available", "borrow a book online", "real-time", "return a book now", "available seats"
         ]
 
     def is_english(self, text: str) -> bool:
-        """检查用户输入是否为纯英文，严格限制问答只能用英语"""
         return not bool(re.search(r'[\u4e00-\u9fff]', text))
 
     def check_out_of_scope(self, query: str) -> bool:
-        """检测是否属于实时预定、查余座等越界请求"""
         query_lower = query.lower()
         return any(kw in query_lower for kw in self.out_of_scope_keywords)
 
     def safe_refusal(self) -> dict:
-        """安全拒绝及 fallback 路由"""
         return {
             "answer": "I am sorry, but I cannot perform real-time operations such as checking seat/book availability, making live bookings, or handling direct checkouts. This assistant is strictly for checking static library regulations.",
             "cited_source": "Project Proposal / Out-of-Scope Policy[cite: 2]"
         }
 
     def query_assistant(self, user_query: str) -> dict:
-        """核心问答与引用检索逻辑"""
-        # 1. 语言检查：仅允许英文
         if not self.is_english(user_query):
             return {
                 "answer": "Error: Q&A is strictly restricted to English only. Please submit your question in English.",
                 "cited_source": "N/A"
             }
 
-        # 2. 范围检查：过滤实时操作请求
         if self.check_out_of_scope(user_query):
             return self.safe_refusal()
 
-        # 3. 静态规章检索与匹配[cite: 1]
         query_lower = user_query.lower()
         matched_section = None
         
@@ -93,7 +84,6 @@ class LibraryAssistantAgent:
             "cited_source": f"[{matched_section} - {sec_data['title']}] {sec_data['text']}[cite: 1]"
         }
 
-# --- 交互式问答程序入口 ---
 if __name__ == "__main__":
     assistant = LibraryAssistantAgent()
     print("========================================================")
@@ -103,22 +93,17 @@ if __name__ == "__main__":
     
     while True:
         try:
-            # 获取用户输入
             user_input = input("\nStudent Query (English): ").strip()
             
-            # 退出指令
             if user_input.lower() in ["exit", "quit"]:
                 print("Exiting assistant. Have a great day!")
                 break
             
-            # 跳过空输入
             if not user_input:
                 continue
                 
-            # 执行问答
             res = assistant.query_assistant(user_input)
             
-            # 输出结果与引用
             print("\n[Answer]:")
             print(res["answer"])
             print("\n[Cited Source / Paragraph]:")
