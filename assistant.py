@@ -2,7 +2,7 @@ import os, re
 from retriever import retrieve
 
 use_llm=os.getenv("USE_LLM")=="1"
-blocked_phrases=["right now", "real-time", "available seat", "is seat", "book", "reserve", "check availability", "borrow a book online"]
+blocked_phrases=["right now", "real-time", "available seat", "is seat", "book a room", "book a study room", "booking", "reserve", "check availability", "borrow a book online"]
 
 def ask(question):
     if re.search(r"[\u4e00-\u9fff]", question):
