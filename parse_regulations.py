@@ -21,10 +21,10 @@ for line in paragraphs:
     if heading:
         save_clause()
         current_reg=heading.group(1)
-        position= -1
+        position=-2
         continue
     if current_reg:
-        position+= 1
+        position+=1
         save_clause()
         text_buffer=[line]
 save_clause()
