@@ -1,0 +1,4 @@
+python-docx
+gradio
+openai
+rank_bm25
