@@ -1,1 +1,12 @@
-
+[
+  {"q": "How long can I borrow a book?", "expect": "answer"},
+  {"q": "How many books can a postgraduate borrow?", "expect": "answer"},
+  {"q": "Can I renew a book someone else requested?", "expect": "answer"},
+  {"q": "What is the fine for a late book?", "expect": "answer"},
+  {"q": "My book is 30 days overdue, what happens?", "expect": "answer"},
+  {"q": "Can I leave my bag on a desk for two hours?", "expect": "answer"},
+  {"q": "Can I eat in the library?", "expect": "answer"},
+  {"q": "Is seat 42 free right now?", "expect": "refuse"},
+  {"q": "Can you book a study room for me?", "expect": "refuse"},
+  {"q": "请告诉我图书馆的开放时间", "expect": "refuse"}
+]
