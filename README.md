@@ -1,4 +1,24 @@
-# AILT9019-Group-54
-This is our first version of assistant, it haven't attached any LLM yet. It can only be used to answer the simple question about library regulations with original text citation. How it currently work is that it checks several keywords from users input, and gives the output and cited text according to 'Regulation.docx' and users input. There are some safe refusal case. For example, if user uses any languages except English as input, the assistant will refuse to answer. Also, if there are some keywords like 'real time', 'right now', or 'is ... available', the assistant will also refuse to answer. In the next few weeks, we will keep working on to deal with the weaknesses of this assistant.
+# AILT9019-Group-54 #
+# HKU Library Regulations Assistant #
 
-The model we now have on GitHub serves as a basis for further developments. We did explore more advanced features, but we decided for them not to be added to GitHub yet after some incidents, so that the base form of the system can be tested and evaluated first. We deem it a possibility that the premature inclusion of advanced features before adequate refining would lead to the entire system to be very buggy or even crashing outright.
+This assistant is a small tool that answers students' questions about the HKU Library Regulations using the official document - "Regulation.docx". It answers the enquiries and shows the citation alongside the answer.
+
+WHAT IT DOES NOT DO:
+It cannot check real-time availability, make bookings, handle personal data, or make subjective judgements.
+
+HOW TO INSTALL:
+pip3 install -r requirements.txt
+
+HOW TO SEARCH DATA:
+python3 parse_regulations.py
+
+HOW TO RUN (TESTING):
+python3 evaluate.py     runs the 10 test questions, evaluates, and prints a score
+python3 app.py          opens the web chat UI
+python3 assistant.py    terminal chat
+
+ADDITIONAL INFORMATION:
+The source is extracted from official HKU Library Regulations. Clause IDs are assigned by paragraph order inside each regulation. The original list letters are stored in Word format and not as readable text.
+
+INPUTTING INSTRUCTIONS:
+Keyword search can miss heavily paraphrased questions. English input only.
